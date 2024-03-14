@@ -49,8 +49,13 @@ public class UserController {
     
     @GetMapping("getAll")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    public List<User> getUsers() {
-        return userService.getAllUsers();
+    public List<User> getUsers() throws Exception {
+        List<User> users =  userService.getAllUsers();
+        if(users.size() == 0){
+            throw new Exception("Sorry no user exists");
+        }
+        return users;
+
     }
     
     @GetMapping("welcome")
